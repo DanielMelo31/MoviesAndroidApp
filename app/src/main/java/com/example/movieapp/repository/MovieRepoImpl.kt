@@ -3,11 +3,10 @@ package com.example.movieapp.repository
 import com.example.movieapp.data.model.MovieList
 import com.example.movieapp.data.resource.MovieDataSource
 
-class MovieRepoImpl(private val dataSource: MovieDataSource) : MovieRepo{
+class MovieRepoImpl(private val dataSource: MovieDataSource): MovieRepo{
+    override suspend fun getUpcomingMovieRepo(): MovieList = dataSource.getUpcomingMovie()
 
-    override suspend fun getUpcomingMovie(): MovieList = dataSource.getUpcomingMovie()
+    override suspend fun getTopRatedMovieRepo(): MovieList = dataSource.getTopRatedMovie()
 
-    override suspend fun getTopRatedMovie(): MovieList = dataSource.getTopRatedMovie()
-
-    override suspend fun getPopularMovies(): MovieList = dataSource.getPopularMovies()
+    override suspend fun getPopularMoviesRepo(): MovieList = dataSource.getPopularMovies()
 }
