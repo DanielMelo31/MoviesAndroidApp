@@ -5,7 +5,7 @@ import javax.sql.StatementEvent
 data class Movie(
         val id: Int = 1,
         val adult: Boolean = false,
-        val poster_page: String = "",
+        val poster_path: String = "",
         val overview: String = "",
         val release_date: String = "",
         val genre_id: List<Int> = listOf(),
