@@ -11,15 +11,17 @@ import kotlinx.coroutines.Dispatchers
 
 
 class MovieViewModel(private val repo: MovieRepo): ViewModel() {
-    fun fetchUpcomingMovie() = liveData<Resource<MovieList>>(Dispatchers.IO) {
+    fun fetchMainScreenMovies() = liveData<Resource<Triple<MovieList, MovieList, MovieList>>>(Dispatchers.IO) {
         emit(Resource.Loading())
 
         try {
-            emit(Resource.Success(repo.getUpcomingMovieRepo()))
+            emit(Resource.Success(Triple(repo.getUpcomingMovieRepo(), repo.getPopularMoviesRepo(), repo.getTopRatedMovieRepo())))
         } catch (e: Exception) {
             emit(Resource.Failure(e))
         }
     }
+
+
 }
 
 class ViewModelFactory(private val repo:MovieRepo): ViewModelProvider.Factory {
