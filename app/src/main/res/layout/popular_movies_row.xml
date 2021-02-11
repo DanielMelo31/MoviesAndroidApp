@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/popular_movies"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="20sp" />
 
