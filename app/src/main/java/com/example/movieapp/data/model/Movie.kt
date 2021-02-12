@@ -16,7 +16,7 @@ data class Movie(
         val popularity: Double = 1.0,
         val video: Boolean = false,
         val vote_average: Double = 1.0,
-        val vote_count: Double = 1.0
+        val vote_count: Int = 1
 )
 
 data class MovieList(val results: List<Movie> = listOf())
