@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.movieapp.data.model.MovieEntity
 
-@Database(entities = [MoviesDao::class], version = 1)
-class AppDatabase: RoomDatabase() {
+@Database(entities = [MovieEntity::class], version = 1)
+abstract class AppDatabase: RoomDatabase() {
     abstract fun movieDao(): MoviesDao
 
     companion object {

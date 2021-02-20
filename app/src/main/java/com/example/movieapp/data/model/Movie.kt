@@ -1,5 +1,6 @@
 package com.example.movieapp.data.model
 
+import android.provider.ContactsContract
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,7 +12,6 @@ data class Movie(
         val poster_path: String = "",
         val overview: String = "",
         val release_date: String = "",
-        val genre_id: List<Int> = listOf(),
         val original_title: String = "",
         val original_language: String = "",
         val title: String = "",
@@ -19,7 +19,8 @@ data class Movie(
         val popularity: Double = 1.0,
         val video: Boolean = false,
         val vote_average: Double = 1.0,
-        val vote_count: Int = 1
+        val vote_count: Int = 1,
+        val movie_type: String = ""
 )
 
 data class MovieList(val results: List<Movie> = listOf())
@@ -32,11 +33,11 @@ data class MovieEntity(
         val id: Int = 1,
         @ColumnInfo(name = "adult")
         val adult: Boolean = false,
-        @ColumnInfo(name = "poster_path" )
+        @ColumnInfo(name = "poster_path")
         val poster_path: String = "",
         @ColumnInfo(name = "overview")
         val overview: String = "",
-        @ColumnInfo(name = "release_date" )
+        @ColumnInfo(name = "release_date")
         val release_date: String = "",
         @ColumnInfo(name = "original_title")
         val original_title: String = "",
@@ -47,11 +48,56 @@ data class MovieEntity(
         @ColumnInfo(name = "backdrop_path")
         val backdrop_path: String = "",
         @ColumnInfo(name = "popularity")
-        val popularity: Double = 1.0,
+        val popularity: Double = -1.0,
         @ColumnInfo(name = "video")
         val video: Boolean = false,
         @ColumnInfo(name = "vote_average")
-        val vote_average: Double = 1.0,
-        @ColumnInfo(name = "vote_average")
-        val vote_count: Int = 1
+        val vote_average: Double = -1.0,
+        @ColumnInfo(name = "vote_count")
+        val vote_count: Int = -1,
+        @ColumnInfo(name = "movie_type")
+        val movie_type: String = ""
+)
+
+
+fun List<MovieEntity>.toMovieList(): MovieList {
+    val resultList = mutableListOf<Movie>()
+    this.forEach { movieEntity ->
+        resultList.add(movieEntity.toMovie())
+    }
+    return MovieList(resultList)
+}
+
+fun MovieEntity.toMovie(): Movie = Movie(
+        this.id,
+        this.adult,
+        this.poster_path,
+        this.overview,
+        this.release_date,
+        this.original_title,
+        this.original_language,
+        this.title,
+        this.backdrop_path,
+        this.popularity,
+        this.video,
+        this.vote_average,
+        this.vote_count,
+        this.movie_type
+)
+
+fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(
+        this.id,
+        this.adult,
+        this.poster_path,
+        this.overview,
+        this.release_date,
+        this.original_title,
+        this.original_language,
+        this.title,
+        this.backdrop_path,
+        this.popularity,
+        this.video,
+        this.vote_average,
+        this.vote_count,
+        movie_type = movieType
 )
